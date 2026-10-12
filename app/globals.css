@@ -1,8 +1,28 @@
+
 @import "tailwindcss";
 
+/* ========================================
+   IINI LABS — GLOBAL DESIGN SYSTEM
+======================================== */
+
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  color-scheme: dark;
+
+  --background: #07090d;
+  --surface: #0c1017;
+  --surface-elevated: #111722;
+  --foreground: #f5f7fb;
+  --muted: #98a2b3;
+  --border: rgba(255, 255, 255, 0.09);
+  --accent: #60a5fa;
+  --accent-strong: #3b82f6;
+
+  --page-width: 1280px;
+  --page-gutter: 24px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
 }
 
 * {
@@ -11,14 +31,28 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.35);
+  color: #ffffff;
 }
 
 a {
@@ -27,6 +61,318 @@ a {
 }
 
 button,
-a {
+a,
+input,
+textarea,
+select {
   -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--foreground);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   REUSABLE LAYOUT
+======================================== */
+
+.container {
+  width: min(
+    calc(100% - var(--page-gutter) * 2),
+    var(--page-width)
+  );
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: clamp(64px, 8vw, 112px);
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.section-label::before {
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.btn-primary {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--accent-strong);
+  border-radius: 999px;
+  background: var(--accent-strong);
+  padding: 12px 24px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  border-color: #60a5fa;
+  background: #60a5fa;
+  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.18);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 12px 24px;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(96, 165, 250, 0.5);
+  background: rgba(96, 165, 250, 0.07);
+}
+
+/* ========================================
+   CARDS
+======================================== */
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.card-interactive {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(96, 165, 250, 0.32);
+  background: var(--surface-elevated);
+}
+
+/* ========================================
+   FORMS
+======================================== */
+
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #687386;
+  opacity: 1;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(96, 165, 250, 0.7);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ========================================
+   HOMEPAGE EFFECTS
+   Keep existing component class names.
+======================================== */
+
+.hero-grid {
+  background-image:
+    linear-gradient(
+      rgba(96, 165, 250, 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(96, 165, 250, 0.07) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+}
+
+.hero-gradient-text {
+  background: linear-gradient(
+    100deg,
+    #dbeafe 0%,
+    #93c5fd 38%,
+    #60a5fa 68%,
+    #818cf8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #303846 var(--background);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid var(--background);
+  border-radius: 999px;
+  background: #303846;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ========================================
+   RESPONSIVE SPACING
+======================================== */
+
+@media (max-width: 640px) {
+  :root {
+    --page-gutter: 18px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .section-padding {
+    padding-block: 60px;
+  }
 }
